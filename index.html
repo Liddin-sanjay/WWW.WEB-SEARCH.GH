@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WWW.WEB SEARCH.COM</title>
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI;
+background:#0f172a;
+color:white;
+}
+
+/* HEADER */
+header{
+width:100%;
+height:50px;
+background:#020617;
+display:flex;
+align-items:center;
+justify-content:flex-end;
+padding: 0 15px;
+}
+.menu-btn{
+font-size:28px;
+cursor:pointer;
+}
+
+/* DROPDOWN */
+.dropdown{
+position:absolute;
+right:15px;
+top:60px;
+background:white;
+min-width:160px;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+border-radius:6px;
+display:none;
+z-index:1000;
+}
+.dropdown a{
+display:block;
+padding:12px;
+text-decoration:none;
+color:black;
+}
+.dropdown a:hover{
+background:#eee;
+}
+
+/* TITLE */
+.title{
+text-align:center;
+font-size:clamp(35px,6vw,70px);
+margin-top:40px;
+}
+
+/* NEWS */
+.news-container{
+width:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#1e293b;
+padding:10px 0;
+margin-top:30px;
+}
+.news-slider{
+width:80%;
+overflow:hidden;
+position:relative;
+cursor:grab;
+}
+#newsTrack{
+display:flex;
+transition:transform 0.5s ease;
+}
+.news-card{
+display:flex;
+align-items:center;
+gap:10px;
+background:#020617;
+padding:10px;
+border-radius:8px;
+min-width:260px;
+margin-right:20px;
+cursor:pointer;
+}
+.news-card img{
+width:70px;
+height:70px;
+object-fit:cover;
+border-radius:6px;
+}
+.news-card span{
+font-size:13px;
+color:#e2e8f0;
+}
+.nav{
+background:#020617;
+border:none;
+color:white;
+font-size:20px;
+padding:10px 15px;
+cursor:pointer;
+margin:0 10px;
+}
+
+/* SEARCH */
+.container{
+text-align:center;
+margin-top:50px;
+}
+.searchBox{
+display:flex;
+justify-content:center;
+align-items:center;
+flex-wrap:wrap;
+gap:10px;
+margin-top:20px;
+position:relative;
+}
+input{
+width:60vw;
+max-width:700px;
+min-width:200px;
+padding:12px 40px 12px 15px;
+border-radius:30px;
+border:none;
+font-size:16px;
+}
+.clearBtn{
+position:absolute;
+right: 30%;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+color:#64748b;
+}
+.searchBtn{
+padding:12px 20px;
+border:none;
+border-radius:30px;
+background:#38bdf8;
+color:white;
+cursor:pointer;
+}
+.se{
+margin:30px auto;
+width:fit-content;
+background:rgb(146,20,20);
+border:2px solid white;
+padding:10px 15px;
+border-radius:10px;
+text-align:center;
+}
+select{
+margin-top:10px;
+padding:8px;
+border-radius:10px;
+}
+
+/* Suggestions dropdown */
+#suggestions {
+    position:absolute;
+    top:100%; /* below input */
+    align-content: center;
+    width:70%;
+    background:white;
+    color:black;
+    list-style:none;
+    padding:0;
+    margin:5px 0 0 0;
+    border-radius:5px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+    display:none;
+    max-height:200px;
+    overflow-y:auto;
+    z-index:10000;
+}
+
+/* MOBILE */
+@media screen and (max-width:600px){
+.title{font-size:25px;}
+.news-container{flex-direction:column;}
+.news-slider{width:95%;}
+.news-card{min-width:200px;}
+.searchBox{
+    position:fixed;
+    left:5%;
+    width:90%;
+    z-index:10000; /* high for suggestions */
+}
+input{width:100%;}
+.clearBtn{display:none;}
+.searchBtn{width:120px;}
+.se{
+    position:fixed;
+    left:33%;
+    bottom:20%;
+    width:auto;
+    z-index:1000; /* lower than suggestions */
+}
+.nav{display:none;} /* hide arrow buttons on mobile */
+#suggestions {
+    top:55px; /* below input */
+    left:0;
+    width:100%;
+    z-index:10001; /* above se */
+}
+
+
+}
+</style>
+</head>
+<body>
+
+<header>
+<div style="position: fixed;right:1%;" class="menu-btn" onclick="toggleMenu()">☰</div>
+</header>
+
+<div id="dropdownMenu" class="dropdown">
+<a href="#">Details</a>
+<a href="#">Certificate</a>
+<a href="#">News</a>
+</div>
+
+<div class="manual-color-title">
+  <span class="letter-w">W</span>
+  <span class="letter-e">E</span>
+  <span class="letter-b">B</span>&nbsp;&nbsp;
+  <span class="letter-s">S</span>
+  <span class="letter-e2">E</span>
+  <span class="letter-a">A</span>
+  <span class="letter-r">R</span>
+  <span class="letter-c">C</span>
+  <span class="letter-h2">H</span>
+</div>
+
+<style>
+.manual-color-title {
+  text-align:center;
+  font-size:70px;
+  font-weight:bold;
+  line-height:1;  /* keep letters tight */
+  margin: 20px 0; /* space from other elements */
+  position: relative; /* isolate from other layout */
+  z-index: 1000; /* ensure it’s on top */
+}
+.letter-w{color:red;}
+.letter-e{color:orange;}
+.letter-b{color:yellow;}
+.letter-s{color:green;}
+.letter-e2{color:blue;}
+.letter-a{color:indigo;}
+.letter-r{color:violet;}
+.letter-c{color:pink;}
+.letter-h2{color:cyan;}
+
+@media screen and (max-width:600px)
+{
+  .manual-color-title {
+  text-align:center;
+  font-size:40px;
+  font-weight:bold;
+  line-height:1;  /* keep letters tight */
+  margin: 20px 0; /* space from other elements */
+  position: relative; /* isolate from other layout */
+  z-index: 1000; /* ensure it’s on top */
+}
+
+}
+</style>
+
+<!-- NEWS -->
+<div class="news-container">
+<button class="nav" onclick="prevNews()">◀</button>
+<div class="news-slider" id="newsSlider">
+<div id="newsTrack"></div>
+</div>
+<button class="nav" onclick="nextNews()">▶</button>
+</div>
+
+<!-- SEARCH -->
+<div class="container">
+<form id="searchForm" action="https://www.google.com/search" method="GET">
+<div class="searchBox">
+<input id="query" name="q" placeholder="Search the web">
+<span class="clearBtn" onclick="clearInput()">✖</span>
+<button class="searchBtn" type="submit">Search</button>
+
+<!-- suggestions -->
+<ul id="suggestions"></ul>
+</div>
+</form>
+
+<div class="se">
+<b style="color:black;font-size:20px;">Search Engine</b>
+<br>
+<select id="engine" onchange="changeEngine()">
+<option value="google">Google</option>
+<option value="bing">Bing</option>
+<option value="duck">DuckDuckGo</option>
+<option value="yahoo">Yahoo</option>
+<option value="brave">Brave</option>
+</select>
+</div>
+</div>
+
+<script>
+/* DROPDOWN */
+function toggleMenu(){
+let menu=document.getElementById("dropdownMenu");
+menu.style.display = (menu.style.display==="block") ? "none":"block";
+}
+document.addEventListener("click",function(event){
+let menu=document.getElementById("dropdownMenu");
+let button=document.querySelector(".menu-btn");
+if(!menu.contains(event.target) && !button.contains(event.target)){
+menu.style.display="none";
+}
+});
+
+/* CLEAR INPUT */
+function clearInput(){document.getElementById("query").value="";}
+
+/* SEARCH ENGINE */
+function changeEngine(){
+let engine=document.getElementById("engine").value;
+let form=document.getElementById("searchForm");
+if(engine==="google") form.action="https://www.google.com/search";
+if(engine==="bing") form.action="https://www.bing.com/search";
+if(engine==="duck") form.action="https://duckduckgo.com/";
+if(engine==="yahoo") form.action="https://search.yahoo.com/search";
+if(engine==="brave") form.action="https://search.brave.com/search";
+}
+
+/* NEWS SLIDER */
+let position=0;
+let cardWidth=280;
+function nextNews(){position-=cardWidth;document.getElementById("newsTrack").style.transform="translateX("+position+"px)";}
+function prevNews(){position+=cardWidth;document.getElementById("newsTrack").style.transform="translateX("+position+"px)";}
+
+/* AUTO SLIDE */
+setInterval(()=>{nextNews();},4000);
+
+/* LOAD NEWS */
+fetch("https://api.rss2json.com/v1/api.json?rss_url=https://feeds.bbci.co.uk/news/technology/rss.xml")
+.then(res=>res.json())
+.then(data=>{
+let track=document.getElementById("newsTrack");
+data.items.slice(0,10).forEach(article=>{
+let card=document.createElement("div");
+card.className="news-card";
+let img=document.createElement("img");
+img.src=article.thumbnail || "https://via.placeholder.com/70";
+let title=document.createElement("span");
+title.textContent=article.title;
+card.appendChild(img);
+card.appendChild(title);
+card.onclick=function(){window.open(article.link);}
+track.appendChild(card);
+});
+});
+
+/* MOBILE TOUCH SWIPE */
+const slider = document.getElementById("newsSlider");
+let startX=0;
+let scrollLeft=0;
+
+slider.addEventListener("touchstart",(e)=>{
+startX=e.touches[0].pageX;
+scrollLeft=position;
+});
+
+slider.addEventListener("touchmove",(e)=>{
+const x = e.touches[0].pageX;
+const walk = x - startX;
+document.getElementById("newsTrack").style.transform = "translateX("+(scrollLeft+walk)+"px)";
+});
+
+// Clear search box after every search
+document.getElementById("searchForm").addEventListener("submit", function() {
+    setTimeout(() => {
+        document.getElementById("query").value = "";
+    }, 10); // small timeout ensures form submission triggers first
+});
+
+// ONLINE SEARCH SUGGESTIONS (Google Suggest)
+const input = document.getElementById("query");
+const suggestionBox = document.getElementById("suggestions");
+
+input.addEventListener("input", function() {
+  const query = this.value.trim();
+  suggestionBox.innerHTML = "";
+
+  if (!query) {
+    suggestionBox.style.display = "none";
+    return;
+  }
+
+  // JSONP script to fetch suggestions
+  const script = document.createElement("script");
+  const callbackName = "googleSuggestCallback";
+  script.src = `https://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(query)}&callback=${callbackName}`;
+  document.body.appendChild(script);
+
+  window[callbackName] = function(data) {
+    suggestionBox.innerHTML = "";
+    if (!data[1] || data[1].length === 0) {
+      suggestionBox.style.display = "none";
+      document.body.removeChild(script);
+      delete window[callbackName];
+      return;
+    }
+
+    data[1].forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      li.style.padding = "8px";
+      li.style.cursor = "pointer";
+      li.addEventListener("click", function() {
+        input.value = item;
+        suggestionBox.style.display = "none";
+        document.getElementById("searchForm").submit();
+      });
+      suggestionBox.appendChild(li);
+    });
+
+    suggestionBox.style.display = "block";
+    document.body.removeChild(script);
+    delete window[callbackName];
+  }
+});
+
+// Close suggestions when clicking outside
+document.addEventListener("click", function(e) {
+  if (!input.contains(e.target) && !suggestionBox.contains(e.target)) {
+    suggestionBox.style.display = "none";
+  }
+});
+</script>
+</body>
+</html>
